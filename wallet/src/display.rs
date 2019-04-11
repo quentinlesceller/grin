@@ -38,7 +38,7 @@ pub fn outputs(
 	if term::stdout().is_none() {
 		return Ok(());
 	}
-	let mut t =  term::stdout().unwrap();
+	let mut t = term::stdout().unwrap();
 	t.fg(term::color::MAGENTA).unwrap();
 	writeln!(t, "{}", title).unwrap();
 	t.reset().unwrap();
