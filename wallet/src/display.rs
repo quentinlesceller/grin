@@ -35,6 +35,9 @@ pub fn outputs(
 		account, cur_height
 	);
 	println!();
+	if term::stdout().is_none() {
+		return Ok(());
+	}
 	let mut t = term::stdout().unwrap();
 	t.fg(term::color::MAGENTA).unwrap();
 	writeln!(t, "{}", title).unwrap();

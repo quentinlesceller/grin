@@ -21,7 +21,6 @@ trigger:
 variables:
   RUST_BACKTRACE: '1'
   RUST_FLAGS: '-C debug-assertions'
-  DISPLAY: '1'
 
 jobs:
 - job: Linux
