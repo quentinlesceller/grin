@@ -499,23 +499,19 @@ mod wallet_tests {
 
 		// txs and outputs (mostly spit out for a visual in test logs)
 		let arg_vec = vec!["grin", "wallet", "-p", "password", "-a", "mining", "txs"];
-		info!("Crash here");
 		execute_command(&app, test_dir, "wallet1", &client1, arg_vec)?;
-		info!("Crash here 2");
 
 		// message output (mostly spit out for a visual in test logs)
 		let arg_vec = vec![
 			"grin", "wallet", "-p", "password", "-a", "mining", "txs", "-i", "10",
 		];
 		execute_command(&app, test_dir, "wallet1", &client1, arg_vec)?;
-		info!("Crash here 3");
 
 		// txs and outputs (mostly spit out for a visual in test logs)
 		let arg_vec = vec![
 			"grin", "wallet", "-p", "password", "-a", "mining", "outputs",
 		];
 		execute_command(&app, test_dir, "wallet1", &client1, arg_vec)?;
-		info!("Crash here 4");
 
 		// let logging finish
 		thread::sleep(Duration::from_millis(200));
