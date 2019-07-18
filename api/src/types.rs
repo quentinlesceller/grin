@@ -83,7 +83,11 @@ pub struct Status {
 }
 
 impl Status {
-	pub fn from_tip_and_peers(current_tip: chain::Tip, connections: u32, current_status: String) -> Status {
+	pub fn from_tip_and_peers(
+		current_tip: chain::Tip,
+		connections: u32,
+		current_status: String,
+	) -> Status {
 		Status {
 			protocol_version: p2p::msg::ProtocolVersion::default().into(),
 			user_agent: p2p::msg::USER_AGENT.to_string(),
