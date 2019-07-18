@@ -78,15 +78,18 @@ pub struct Status {
 	pub connections: u32,
 	// The state of the current fork Tip
 	pub tip: Tip,
+	// Current sync status
+	pub current_status: String,
 }
 
 impl Status {
-	pub fn from_tip_and_peers(current_tip: chain::Tip, connections: u32) -> Status {
+	pub fn from_tip_and_peers(current_tip: chain::Tip, connections: u32, current_status: String) -> Status {
 		Status {
 			protocol_version: p2p::msg::ProtocolVersion::default().into(),
 			user_agent: p2p::msg::USER_AGENT.to_string(),
 			connections: connections,
 			tip: Tip::from_tip(current_tip),
+			current_status: current_status,
 		}
 	}
 }

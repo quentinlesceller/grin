@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use std::sync::Arc;
+
 use super::utils::w;
 use crate::chain;
 use crate::p2p;
@@ -64,6 +66,7 @@ impl Handler for KernelDownloadHandler {
 pub struct StatusHandler {
 	pub chain: Weak<chain::Chain>,
 	pub peers: Weak<p2p::Peers>,
+	pub sync_status: Arc<String>,
 }
 
 impl StatusHandler {
@@ -74,6 +77,7 @@ impl StatusHandler {
 		Ok(Status::from_tip_and_peers(
 			head,
 			w(&self.peers)?.peer_count(),
+			self.sync_status.to_string(),
 		))
 	}
 }

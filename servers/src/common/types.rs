@@ -14,6 +14,7 @@
 
 //! Server types
 use std::convert::From;
+use std::fmt;
 use std::sync::Arc;
 
 use chrono::prelude::{DateTime, Utc};
@@ -347,9 +348,17 @@ pub enum SyncStatus {
 	Shutdown,
 }
 
+// Implement display for SyncStatus
+impl fmt::Display for SyncStatus {
+	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+		write!(f, "{:?}", self)
+	}
+}
+
 /// Current sync state. Encapsulates the current SyncStatus.
 pub struct SyncState {
 	current: RwLock<SyncStatus>,
+	current_string: RwLock<Arc<String>>,
 	sync_error: Arc<RwLock<Option<Error>>>,
 }
 
@@ -358,6 +367,7 @@ impl SyncState {
 	pub fn new() -> SyncState {
 		SyncState {
 			current: RwLock::new(SyncStatus::Initial),
+			current_string: RwLock::new(Arc::new(SyncStatus::Initial.to_string())),
 			sync_error: Arc::new(RwLock::new(None)),
 		}
 	}
@@ -380,10 +390,17 @@ impl SyncState {
 		}
 
 		let mut status = self.current.write();
+		let mut status_string = self.current_string.write();
 
 		debug!("sync_state: sync_status: {:?} -> {:?}", *status, new_status,);
 
 		*status = new_status;
+		*status_string = Arc::new(new_status.to_string());
+	}
+
+	/// Return the reference counting pointer to the status string
+	pub fn get_status_string(&self) -> Arc<String> {
+		self.current_string.read().clone()
 	}
 
 	/// Update txhashset downloading progress
