@@ -48,6 +48,7 @@ jobs:
         CI_JOB_ARGS: api util store
       release:
         CI_JOB: release
+        RUSTFLAGS: -C target-feature=+crt-static
         PLATFORM: linux-amd64
   steps:
     - template: '.ci/install.yml'
